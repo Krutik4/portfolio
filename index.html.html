@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krutik Panchal | Data Engineer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+        }
+        .theme-primary { color: #246db5; }
+        .theme-secondary { color: #5cadff; }
+        .bg-theme-primary { background-color: #246db5; }
+        .bg-theme-secondary { background-color: #5cadff; }
+        .border-theme-primary { border-color: #246db5; }
+        .text-theme-primary-text { color: #ffffff; }
+        .hover-bg-theme-primary-dark:hover { background-color: #1e5a9a; }
+        .hover-bg-theme-secondary-dark:hover { background-color: #4a9de6; }
+
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #246db5;
+            transition: width .3s;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .skill-bubble {
+            transition: all 0.3s ease;
+        }
+        .skill-bubble:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(36, 109, 181, 0.2);
+        }
+
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 18px;
+            height: 100%;
+            width: 4px;
+            background: #e2e8f0;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: -9px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: #246db5;
+            border: 4px solid #ffffff;
+            z-index: 10;
+        }
+
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .modal.hidden .modal-overlay {
+            opacity: 0;
+        }
+        .modal.hidden .modal-content {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+
+        /* Scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #246db5;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1e5a9a;
+        }
+
+        /* Fade-in animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/80 backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-md">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold theme-primary">Krutik Panchal</a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link text-gray-700 hover:theme-primary font-medium active">Home</a>
+                <a href="#projects" class="nav-link text-gray-700 hover:theme-primary font-medium">Projects</a>
+                <a href="#experience" class="nav-link text-gray-700 hover:theme-primary font-medium">Experience</a>
+                <a href="#skills" class="nav-link text-gray-700 hover:theme-primary font-medium">Skills</a>
+                <a href="#contact" class="nav-link text-gray-700 hover:theme-primary font-medium">Contact</a>
+            </nav>
+            <a href="#" target="_blank" class="hidden md:inline-block bg-theme-primary text-white font-semibold px-4 py-2 rounded-lg shadow-lg hover-bg-theme-primary-dark transition-colors">Download Resume</a>
+            <button id="mobile-menu-button" class="md:hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#home" class="block py-2 text-gray-700 hover:theme-primary">Home</a>
+            <a href="#projects" class="block py-2 text-gray-700 hover:theme-primary">Projects</a>
+            <a href="#experience" class="block py-2 text-gray-700 hover:theme-primary">Experience</a>
+            <a href="#skills" class="block py-2 text-gray-700 hover:theme-primary">Skills</a>
+            <a href="#contact" class="block py-2 text-gray-700 hover:theme-primary">Contact</a>
+            <a href="#" target="_blank" class="block mt-2 bg-theme-primary text-white text-center font-semibold px-4 py-2 rounded-lg shadow-lg hover-bg-theme-primary-dark transition-colors">Download Resume</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="pt-24 md:pt-32 pb-16 bg-gray-50">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-2/3 text-center md:text-left">
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-gray-800 leading-tight">
+                        Krutik Panchal
+                    </h1>
+                    <p class="text-xl md:text-2xl font-semibold theme-primary mt-2">Data Engineer | AI/ML Enthusiast | Cloud Architect</p>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto md:mx-0">
+                        Building Scalable Data Solutions to Transform Raw Data into Actionable Insights and Drive Efficient Operations.
+                    </p>
+                    <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#projects" class="bg-theme-primary text-white font-bold py-3 px-6 rounded-lg shadow-lg hover-bg-theme-primary-dark transition-transform transform hover:scale-105">View Projects</a>
+                        <a href="#" target="_blank" class="bg-white border-2 border-theme-primary theme-primary font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-gray-100 transition-transform transform hover:scale-105">Download Resume</a>
+                    </div>
+                    <div class="mt-8 flex justify-center md:justify-start space-x-6">
+                        <a href="#" target="_blank" class="text-gray-500 hover:theme-primary transition-colors" aria-label="LinkedIn">
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                        <a href="#" target="_blank" class="text-gray-500 hover:theme-primary transition-colors" aria-label="GitHub">
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="mailto:krutikpanchal44@gmail.com" class="text-gray-500 hover:theme-primary transition-colors" aria-label="Email">
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/></svg>
+                        </a>
+                        <a href="#" target="_blank" class="text-gray-500 hover:theme-primary transition-colors" aria-label="ORCID">
+                            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.06,20.438c-1.06,0-1.59-.31-2.12-.94s-.63-1.47-.63-2.49v-6.73c0-1.15.25-2.03.75-2.65s1.22-.94 2.12-.94c.9,0 1.58.31 2.06.94s.72 1.5.72 2.65v6.73c0 1.02-.24 1.88-.72 2.49s-1.16.94-2.06.94zm3.18-13.52c0-.5-.16-.9-.47-1.22s-.72-.47-1.22-.47c-.5,0-.9.16-1.22.47s-.47.72-.47 1.22c0 .5.16.9.47 1.22s.72.47 1.22.47c.5,0 .9-.16 1.22-.47s.47-.72.47-1.22z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-blue-200 to-indigo-300 overflow-hidden shadow-2xl">
+                        <svg class="w-full h-full text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="py-20 fade-in-section">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">About Me</h2>
+                    <div class="w-24 h-1 bg-theme-primary mx-auto mt-4"></div>
+                </div>
+                <div class="max-w-4xl mx-auto text-center text-gray-700 text-lg leading-relaxed">
+                    <p>
+                        A dedicated Data Engineer with an MS in Data Science, passionate about solving complex challenges across Data Science, Data Engineering, Cloud Engineering, and DevOps. I specialize in designing and optimizing end-to-end data pipelines, leveraging cloud platforms for scalable architectures, and developing machine learning models that drive intelligent decision-making.
+                    </p>
+                    <p class="mt-4 font-semibold theme-primary">
+                        Currently seeking full-time Data Engineer roles.
+                    </p>
+                </div>
+                <div class="mt-12">
+                    <h3 class="text-2xl font-semibold text-center mb-8">Key Focus Areas</h3>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <span class="skill-bubble bg-blue-100 text-blue-800 text-lg font-semibold px-6 py-3 rounded-full shadow-md">Data Engineering</span>
+                        <span class="skill-bubble bg-green-100 text-green-800 text-lg font-semibold px-6 py-3 rounded-full shadow-md">Data Science</span>
+                        <span class="skill-bubble bg-purple-100 text-purple-800 text-lg font-semibold px-6 py-3 rounded-full shadow-md">Cloud Technologies</span>
+                        <span class="skill-bubble bg-yellow-100 text-yellow-800 text-lg font-semibold px-6 py-3 rounded-full shadow-md">Machine Learning & AI</span>
+                        <span class="skill-bubble bg-red-100 text-red-800 text-lg font-semibold px-6 py-3 rounded-full shadow-md">DevOps</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 bg-gray-50 fade-in-section">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">Projects</h2>
+                    <div class="w-24 h-1 bg-theme-primary mx-auto mt-4"></div>
+                </div>
+                <div id="project-filters" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-10">
+                    <!-- Filter buttons will be injected here -->
+                </div>
+                <div id="project-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project cards will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Experience Section -->
+        <section id="experience" class="py-20 fade-in-section">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold">Work Experience</h2>
+                    <div class="w-24 h-1 bg-theme-primary mx-auto mt-4"></div>
+                </div>
+                <div id="experience-timeline" class="relative max-w-3xl mx-auto pl-8">
+                    <!-- Timeline items will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 bg-gray-50 fade-in-section">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">Technical Skills</h2>
+                    <div class="w-24 h-1 bg-theme-primary mx-auto mt-4"></div>
+                </div>
+                <div id="skills-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Skill cards will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Education & Publications Section -->
+        <section id="education" class="py-20 fade-in-section">
+            <div class="container mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-16">
+                    <div>
+                        <div class="text-center lg:text-left mb-12">
+                            <h2 class="text-3xl md:text-4xl font-bold">Education</h2>
+                            <div class="w-24 h-1 bg-theme-primary mx-auto lg:mx-0 mt-4"></div>
+                        </div>
+                        <div id="education-container" class="space-y-8">
+                            <!-- Education items will be injected here -->
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-center lg:text-left mb-12">
+                            <h2 class="text-3xl md:text-4xl font-bold">Publications</h2>
+                            <div class="w-24 h-1 bg-theme-primary mx-auto lg:mx-0 mt-4"></div>
+                        </div>
+                        <div id="publications-container" class="space-y-8">
+                            <!-- Publication items will be injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-gray-50 fade-in-section">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">Get In Touch</h2>
+                    <div class="w-24 h-1 bg-theme-primary mx-auto mt-4"></div>
+                    <p class="mt-4 text-lg text-gray-600">Let's connect, collaborate on a project, or discuss your data needs.</p>
+                </div>
+                <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg flex flex-col md:flex-row gap-8">
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-semibold mb-4">Contact Information</h3>
+                        <div class="space-y-4 text-gray-700">
+                            <p class="flex items-center"><svg class="w-5 h-5 mr-3 theme-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg> krutikpanchal44@gmail.com</p>
+                            <p class="flex items-center"><svg class="w-5 h-5 mr-3 theme-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> <a href="#" target="_blank" class="hover:underline">LinkedIn Profile</a></p>
+                            <p class="flex items-center"><svg class="w-5 h-5 mr-3 theme-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg> <a href="#" target="_blank" class="hover:underline">GitHub Profile</a></p>
+                        </div>
+                    </div>
+                    <form class="md:w-1/2 space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" id="name" name="name" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="email" name="email" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                            <input type="text" id="subject" name="subject" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-theme-primary text-white font-bold py-3 px-6 rounded-lg shadow-lg hover-bg-theme-primary-dark transition-colors">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Krutik Panchal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
+        <div class="modal-overlay fixed inset-0"></div>
+        <div class="modal-content bg-white rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative">
+            <button id="modal-close-button" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div id="modal-body" class="p-8 md:p-12">
+                <!-- Modal content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DATA ---
+            const projects = [
+                {
+                    title: "Talk with PDFs: RAG-based Document Intelligence",
+                    category: "Machine Learning",
+                    technologies: ["Python", "LangChain", "ChromaDB", "LLMs"],
+                    description: "An intelligent system using local LLMs and RAG to query and get insights from PDF documents.",
+                    details: {
+                        role: "ML Developer",
+                        problem: "Efficiently extracting specific information from large collections of PDF documents without manual reading.",
+                        solution: "Developed a RAG (Retrieval-Augmented Generation) pipeline using LangChain. Integrated local LLMs (Ollama) for processing and ChromaDB for vector storage. Implemented automated testing with PyTest to ensure reliability.",
+                        results: "Achieved response speeds under 2 seconds. Significantly improved accuracy in information retrieval compared to simple keyword search.",
+                        links: { github: "#" }
+                    }
+                },
+                {
+                    title: "Tick Sync: Real-time Stock Stream Processing",
+                    category: "Data Engineering",
+                    technologies: ["Kafka", "AWS", "Python", "SQL"],
+                    description: "A cloud-native streaming system to process over 1M+ daily stock trade events in real-time.",
+                    details: {
+                        role: "Lead Data Engineer",
+                        problem: "Ingesting and processing high-volume, real-time stock market data for immediate analysis.",
+                        solution: "Architected a streaming pipeline using Apache Kafka for data ingestion. Python producers/consumers handled data flow. Utilized AWS services including S3 for storage, Glue for ETL, and Athena for querying.",
+                        results: "Successfully handled over 1 million daily trade events. Reduced data query latency for analysts from hours to under a minute.",
+                        links: { github: "#" }
+                    }
+                },
+                {
+                    title: "Network Anomaly Detection System",
+                    category: "Machine Learning",
+                    technologies: ["Python", "Scikit-learn", "PCA"],
+                    description: "A supervised learning model to detect anomalies in large-scale network traffic data.",
+                    details: {
+                        role: "Data Scientist",
+                        problem: "Identifying malicious or unusual activity within vast amounts of network data to prevent security breaches.",
+                        solution: "Processed a large dataset using feature engineering techniques like PCA and Random Forest for classification. Trained and evaluated multiple supervised learning models to find the best performer.",
+                        results: "Achieved 97.3% model accuracy in detecting anomalies, enhancing network security monitoring capabilities.",
+                        links: { github: "#" }
+                    }
+                },
+                {
+                    title: "Bank Investment Trend Analysis",
+                    category: "Data Visualization",
+                    technologies: ["Tableau", "SQL", "Power BI"],
+                    description: "Interactive dashboards visualizing investment trends, capital ratios, and market volatility for a major bank.",
+                    details: {
+                        role: "Data Analyst",
+                        problem: "Stakeholders needed a clear, interactive way to understand complex financial data and investment performance.",
+                        solution: "Extracted and consolidated financial data using SQL. Designed and built a suite of interactive dashboards in Tableau and Power BI to visualize key metrics like investment trends, capital ratios, and volatility spikes.",
+                        results: "Provided actionable insights to management, leading to more informed strategic decisions. Reduced reporting time significantly.",
+                        links: {}
+                    }
+                },
+                {
+                    title: "Stock Sage: Predictive Inventory Management",
+                    category: "Data Engineering",
+                    technologies: ["MySQL", "MongoDB", "Airflow", "Docker"],
+                    description: "A data-intensive backend with time-series forecasting APIs to optimize inventory levels.",
+                    details: {
+                        role: "Backend Engineer",
+                        problem: "Inaccurate inventory forecasting leading to stockouts and overstocking issues.",
+                        solution: "Developed a robust backend using MySQL and MongoDB Atlas. Created data pipelines with Apache Airflow and containerized the application with Docker. Integrated time-series forecasting APIs for demand prediction.",
+                        results: "Improved inventory demand prediction accuracy by 30%, reducing carrying costs and stockout incidents.",
+                        links: { github: "#" }
+                    }
+                },
+                {
+                    title: "Assessing Effective Token Length in Multimodal Models",
+                    category: "Research",
+                    technologies: ["Python", "PyTorch", "NLP"],
+                    description: "A research project studying the impact of token length in multimodal models, accepted at SIGIR '25.",
+                    details: {
+                        role: "Researcher",
+                        problem: "Understanding how the length of text descriptions (tokens) affects the performance of image-text retrieval models like CLIP.",
+                        solution: "Conducted a systematic study using the Long-CLIP model. Performed domain-specific language analysis to identify optimal token lengths for different types of content.",
+                        results: "Published findings in ACM SIGIR 2025, providing valuable insights for optimizing multimodal AI systems.",
+                        links: { github: "#", paper: "#" }
+                    }
+                },
+                {
+                    title: "Tourism Application Using Augmented Reality",
+                    category: "AR/Mobile",
+                    technologies: ["Unity", "Vuforia SDK", "C#"],
+                    description: "An AR mobile app that overlays interactive virtual objects onto real-world tourist locations.",
+                    details: {
+                        role: "Mobile Developer",
+                        problem: "Enhancing the tourist experience by providing interactive, location-based digital information.",
+                        solution: "Developed a cross-platform mobile application using Unity and the Vuforia SDK. Implemented image recognition to trigger AR content and created interactive 3D models in C#.",
+                        results: "Successfully demonstrated a proof-of-concept with stable AR tracking and interactive virtual content.",
+                        links: { paper: "#" }
+                    }
+                }
+            ];
+
+            const experiences = [
+                {
+                    company: "BulkMagic LLC",
+                    role: "Software Engineer",
+                    duration: "Sep 2025 - Present",
+                    location: "Rochester, NY",
+                    points: [
+                        "Developed Django-based web apps and GraphQL APIs.",
+                        "Implemented secure authentication and AI-driven product features.",
+                        "Deployed on AWS (EC2, Lambda, RDS, S3), improving API performance by 30%.",
+                        "Reduced customer onboarding time by 40% through automation."
+                    ]
+                },
+                {
+                    company: "Rochester Institute of Technology",
+                    role: "Graduate Teaching Assistant",
+                    duration: "Jan 2025 - May 2025",
+                    location: "Rochester, NY",
+                    points: [
+                        "Mentored students in data-intensive applications using Apache Spark and Kafka.",
+                        "Guided design of ETL pipelines with Python, SQL, and MongoDB.",
+                        "Automated workflows with GitLab CI/CD and Airflow, improving efficiency by 30%."
+                    ]
+                },
+                {
+                    company: "Larsen and Toubro Infotech",
+                    role: "Data Engineer",
+                    duration: "Aug 2020 - Jul 2023",
+                    location: "Mumbai, India",
+                    points: [
+                        "Architected AWS data platforms (S3, Redshift, Glue) integrating 7+ TB of data.",
+                        "Built automated ETL pipelines, improving processing speed by 36%.",
+                        "Developed real-time dashboards (Tableau, Power BI), reducing reporting latency from 2 hours to 1 minute.",
+                        "Eliminated 40% of manual effort and reduced data discrepancies by 36%."
+                    ]
+                }
+            ];
+
+            const skills = {
+                "Programming Languages": ["Python (pandas, NumPy, PySpark, Django)", "SQL/MySQL", "Java", "R", "C#"],
+                "Data Engineering": ["ETL Pipelines", "Data Warehousing", "Apache Spark", "Kafka", "Airflow", "dbt"],
+                "Databases": ["MySQL", "PostgreSQL", "MongoDB", "Amazon Redshift", "ChromaDB"],
+                "Cloud & DevOps": ["AWS (S3, Redshift, Glue, Lambda, EC2)", "Azure", "Docker", "Kubernetes", "Git", "GitLab CI/CD"],
+                "Machine Learning & AI": ["NLP (LLMs, RAG)", "Predictive Modelling", "Scikit-learn", "TensorFlow", "PyTorch"],
+                "Data Visualization": ["Power BI (MS Certified)", "Tableau", "Qlik Sense", "matplotlib"],
+            };
+
+            const education = [
+                {
+                    institution: "Rochester Institute of Technology",
+                    degree: "Master of Science (MS) in Data Science",
+                    duration: "Aug 2023 - May 2025",
+                    details: "CGPA: 3.96/4.00. Coursework: Machine Learning, Database Management, Software Engineering for Data Science."
+                },
+                {
+                    institution: "University of Mumbai",
+                    degree: "Bachelor of Engineering (BE) in Information Technology",
+                    duration: "Jul 2016 - May 2020",
+                    details: "Coursework: Data Structures & Algorithms, Cloud Computing, Big Data Analytics."
+                }
+            ];
+
+            const publications = [
+                {
+                    title: "Assessing Effective Token Length in Multimodal Models",
+                    journal: "ACM SIGIR 2025",
+                    description: "A study on the impact of text token length on the performance of image-text retrieval models.",
+                    links: { paper: "#", github: "#" }
+                },
+                {
+                    title: "Tourism Application Using Augmented Reality",
+                    journal: "SSRN-Elsevier's, ICAST-2020 Conference",
+                    description: "Development of an AR mobile application to enhance tourist experiences with interactive digital overlays.",
+                    links: { paper: "#" }
+                }
+            ];
+
+            // --- RENDER FUNCTIONS ---
+
+            function renderProjects() {
+                const grid = document.getElementById('project-grid');
+                grid.innerHTML = '';
+                projects.forEach((project, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'project-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer';
+                    card.dataset.category = project.category;
+                    card.dataset.index = index;
+                    card.innerHTML = `
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">${project.title}</h3>
+                            <p class="text-gray-600 mb-4 text-sm">${project.description}</p>
+                            <div class="flex flex-wrap gap-2">
+                                ${project.technologies.map(tech => `<span class="bg-gray-200 text-gray-700 text-xs font-semibold px-2.5 py-1 rounded-full">${tech}</span>`).join('')}
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+
+            function renderProjectFilters() {
+                const filtersContainer = document.getElementById('project-filters');
+                const categories = ['All', ...new Set(projects.map(p => p.category))];
+                filtersContainer.innerHTML = categories.map(cat => 
+                    `<button class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition-colors ${cat === 'All' ? 'bg-theme-primary text-white' : 'bg-white text-gray-700 hover:bg-gray-200'}" data-filter="${cat}">${cat}</button>`
+                ).join('');
+            }
+
+            function renderExperience() {
+                const timeline = document.getElementById('experience-timeline');
+                timeline.innerHTML = experiences.map(exp => `
+                    <div class="timeline-item mb-12 relative">
+                        <div class="ml-8">
+                            <h3 class="text-xl font-bold">${exp.role}</h3>
+                            <p class="font-semibold theme-primary">${exp.company}</p>
+                            <p class="text-sm text-gray-500 mb-2">${exp.duration} | ${exp.location}</p>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                ${exp.points.map(point => `<li>${point}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function renderSkills() {
+                const container = document.getElementById('skills-container');
+                container.innerHTML = Object.entries(skills).map(([category, skillList]) => `
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 theme-primary">${category}</h3>
+                        <div class="flex flex-wrap gap-2">
+                            ${skillList.map(skill => `<span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">${skill}</span>`).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function renderEducation() {
+                const container = document.getElementById('education-container');
+                container.innerHTML = education.map(edu => `
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold">${edu.institution}</h3>
+                        <p class="font-semibold theme-primary">${edu.degree}</p>
+                        <p class="text-sm text-gray-500 mb-2">${edu.duration}</p>
+                        <p class="text-gray-700">${edu.details}</p>
+                    </div>
+                `).join('');
+            }
+
+            function renderPublications() {
+                const container = document.getElementById('publications-container');
+                container.innerHTML = publications.map(pub => `
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold">${pub.title}</h3>
+                        <p class="font-semibold theme-primary mb-2">${pub.journal}</p>
+                        <p class="text-gray-700 mb-4">${pub.description}</p>
+                        <div class="flex gap-4">
+                            ${pub.links.paper ? `<a href="${pub.links.paper}" target="_blank" class="text-blue-600 hover:underline font-medium">View Paper</a>` : ''}
+                            ${pub.links.github ? `<a href="${pub.links.github}" target="_blank" class="text-blue-600 hover:underline font-medium">GitHub Repo</a>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // --- INTERACTIVITY ---
+
+            // Mobile Menu
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Project Filtering
+            document.getElementById('project-filters').addEventListener('click', (e) => {
+                if (e.target.classList.contains('filter-btn')) {
+                    const filter = e.target.dataset.filter;
+                    document.querySelectorAll('.filter-btn').forEach(btn => {
+                        btn.classList.remove('bg-theme-primary', 'text-white');
+                        btn.classList.add('bg-white', 'text-gray-700');
+                    });
+                    e.target.classList.add('bg-theme-primary', 'text-white');
+                    e.target.classList.remove('bg-white', 'text-gray-700');
+
+                    document.querySelectorAll('#project-grid .project-card').forEach(card => {
+                        if (filter === 'All' || card.dataset.category === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
+            });
+
+            // Project Modal
+            const modal = document.getElementById('project-modal');
+            const modalBody = document.getElementById('modal-body');
+            const closeModalButton = document.getElementById('modal-close-button');
+            const modalOverlay = document.querySelector('.modal-overlay');
+
+            function openModal(project) {
+                modalBody.innerHTML = `
+                    <h2 class="text-3xl font-bold mb-2">${project.title}</h2>
+                    <p class="text-lg font-semibold theme-primary mb-4">${project.details.role}</p>
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-2">Problem Statement</h4>
+                        <p class="text-gray-700">${project.details.problem}</p>
+                    </div>
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-2">Solution & Approach</h4>
+                        <p class="text-gray-700">${project.details.solution}</p>
+                    </div>
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-2">Key Results</h4>
+                        <p class="text-gray-700 font-medium">${project.details.results}</p>
+                    </div>
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-2">Technologies Used</h4>
+                        <div class="flex flex-wrap gap-2">
+                            ${project.technologies.map(tech => `<span class="bg-gray-200 text-gray-700 text-sm font-semibold px-3 py-1 rounded-full">${tech}</span>`).join('')}
+                        </div>
+                    </div>
+                    ${Object.keys(project.details.links).length > 0 ? `
+                    <div>
+                        <h4 class="text-xl font-semibold mb-2">Links</h4>
+                        <div class="flex gap-4">
+                            ${project.details.links.github ? `<a href="${project.details.links.github}" target="_blank" class="text-blue-600 hover:underline font-medium">GitHub Repo</a>` : ''}
+                            ${project.details.links.paper ? `<a href="${project.details.links.paper}" target="_blank" class="text-blue-600 hover:underline font-medium">View Paper</a>` : ''}
+                        </div>
+                    </div>` : ''}
+                `;
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+
+            document.getElementById('project-grid').addEventListener('click', (e) => {
+                const card = e.target.closest('.project-card');
+                if (card) {
+                    const projectIndex = card.dataset.index;
+                    openModal(projects[projectIndex]);
+                }
+            });
+
+            closeModalButton.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', closeModal);
+
+            // Smooth Scrolling & Active Nav Link
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('header nav a');
+
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.4 };
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => sectionObserver.observe(section));
+
+            // Fade-in animations on scroll
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                fadeObserver.observe(section);
+            });
+
+            // --- INITIALIZATION ---
+            renderProjects();
+            renderProjectFilters();
+            renderExperience();
+            renderSkills();
+            renderEducation();
+            renderPublications();
+        });
+    </script>
+</body>
+</html>
